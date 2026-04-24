@@ -14,11 +14,10 @@ pipeline {
     }
     
     stages {
-        stage('build') {
+        stage('Build') {
             steps {
                 echo 'Building Project'
                 echo "Building version ${NEW_VERSION}"
-                // Changed 'sh' to 'bat' for Windows
                 bat "echo Installing dependencies..." 
             }
             
@@ -33,14 +32,14 @@ pipeline {
         }
 
         stage('Test') {
-            steps {
-                echo 'Testing..'
+            when { 
+                expression { params.executeTests == true } 
+            }
+            steps { 
+                echo 'Testing..' 
             }
         }
-        stage('Test') {
-            when { expression { params.executeTests == true } }
-            steps { echo 'Testing...' }
-        }
+        
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
