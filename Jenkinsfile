@@ -1,48 +1,37 @@
 pipeline {
     agent any
     
-    tools {
-        maven 'Maven3' 
+    parameters {
+        // You can have multiple parameters here
+        choice(name: 'VERSION', choices: ['1.1.0', '1.2.0', '1.3.0'], description: 'Select version')
+        booleanParam(name: 'executeTests', defaultValue: true, description: 'Check to run tests')
     }
     
     environment {
         NEW_VERSION = '1.3.0'
     }
-
-    parameters {
-        booleanParam(name: 'executeTests', defaultValue: true, description: 'Run Tests?')
-    }
     
     stages {
-        stage('Build') {
+        stage('build') {
             steps {
                 echo 'Building Project'
-                echo "Building version ${NEW_VERSION}"
-                bat "echo Installing dependencies..." 
-            }
-            
-            post {
-                always {
-                    echo 'I will always run no matter what!'
-                }
-                success {
-                    echo 'The build was successful!'
-                }
+                echo "Building version ${params.VERSION}"
             }
         }
 
-        stage('Test') {
+        stage('test') {
             when { 
                 expression { params.executeTests == true } 
             }
             steps { 
-                echo 'Testing..' 
+                echo 'Testing Project' 
             }
         }
         
-        stage('Deploy') {
+        stage('deploy') {
             steps {
-                echo 'Deploying....'
+                echo 'Deploying Project'
+                echo "Deploying version ${params.VERSION}"
             }
         }
     }
