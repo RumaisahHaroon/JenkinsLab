@@ -2,8 +2,7 @@ pipeline {
     agent any
     
     tools {
-        // Ensure this name matches Manage Jenkins -> Tools -> Maven
-        maven 'M3' 
+        maven 'Maven3' 
     }
     
     environment {
