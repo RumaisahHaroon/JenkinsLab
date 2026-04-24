@@ -6,6 +6,14 @@ pipeline {
                 echo 'Building..'
             }
         }
+        post {
+            always {
+                echo 'I will always run no matter what!'
+            }
+            success {
+                echo 'The build was successful!'
+            }
+        }
         stage('Test') {
             steps {
                 echo 'Testing..'
