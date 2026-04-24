@@ -1,15 +1,24 @@
 pipeline {
-    agent any
-    environment {
-        APP_VERSION = '1.0.0'
-    }
-stages {
-stage('Build') {
-steps {
-echo 'Building..'
-echo 'Building version ${APP_VERSION}'
-// Here you can define commands for your build
+agent any
+tools {
+'Maven
 }
+environment {
+//variables defined here can be used by any stage
+NEW_VERSION = '1.3.0'
+
+}
+stages {
+stage('build') {
+steps {
+echo 'Building Project'
+//using environment variable
+//To output the value of variable in string use " "
+echo "Building version ${NEW_VERSION}"
+sh "nvm install"
+
+}
+
 post {
     always {
         echo 'I will always run no matter what!'
