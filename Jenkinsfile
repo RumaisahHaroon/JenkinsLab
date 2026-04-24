@@ -1,7 +1,7 @@
 pipeline {
 agent any
 tools {
-'Maven
+'Maven'
 }
 environment {
 //variables defined here can be used by any stage
