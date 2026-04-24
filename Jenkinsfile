@@ -7,7 +7,7 @@ stages {
 stage('Build') {
 steps {
 echo 'Building..'
-echo 'Building version $(APP_VERSION)'
+echo 'Building version ${APP_VERSION}'
 // Here you can define commands for your build
 }
 post {
